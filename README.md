@@ -10,3 +10,11 @@ Custom Onboarding Flow
 `cd frontend`
 `npm i`
 `npm start`
+
+## Screenshots
+
+![screenshot1](Screenshot1.png)
+
+![screenshot2](Screenshot2.png)
+
+![screenshot3](Screenshot3.png)
