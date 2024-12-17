@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router";
 import Admin from "./Admin";
 import Form from "./Form";
+import Data from "./Data";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Form />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/data" element={<Data />} />
       </Routes>
     </BrowserRouter>
   )

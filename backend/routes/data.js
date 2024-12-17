@@ -11,6 +11,16 @@ router.post('/', async (req, res, next) => {
   })
 
   res.json(newData);
-})
+});
+
+router.get('/', async (req, res, next) => {
+  const data = await prisma.data.findMany({
+    select: {
+      value: true,
+      name: true,
+    }
+  });
+  res.json(data);
+});
 
 module.exports = router;

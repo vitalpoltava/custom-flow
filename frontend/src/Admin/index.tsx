@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 
 import {getAdminData, saveConfigs} from "../fetchers/http";
 import {AdminComponent} from "../types";
+import {Link} from "react-router";
 
 function Admin() {
   const [page2, setPage2] = useState<AdminComponent[]>([]);
@@ -100,7 +101,8 @@ function Admin() {
                 <Box>
                   <Card variant="elevation" sx={{padding: 1, margin: 1}}>
                     {component.name}
-                    <Button disabled={page2.length < 2} sx={{float: 'right'}} variant={'text'} onClick={() => releaseFromPage2(component)} size={'small'}>Release</Button>
+                    <Button disabled={page2.length < 2} sx={{float: 'right'}} variant={'text'}
+                            onClick={() => releaseFromPage2(component)} size={'small'}>Release</Button>
                   </Card>
                 </Box>
               ))}
@@ -115,7 +117,8 @@ function Admin() {
                 <Box>
                   <Card variant="elevation" sx={{padding: 1, margin: 1}}>
                     {component.name}
-                    <Button disabled={page3.length < 2} sx={{float: 'right'}} variant={'text'} onClick={() => releaseFromPage3(component)} size={'small'}>Release</Button>
+                    <Button disabled={page3.length < 2} sx={{float: 'right'}} variant={'text'}
+                            onClick={() => releaseFromPage3(component)} size={'small'}>Release</Button>
                   </Card>
                 </Box>
               ))}
@@ -123,6 +126,10 @@ function Admin() {
           </Box>
         </Grid>
       </Grid>
+      <div style={{marginTop: '3rem'}}>
+        <Link to="/">Form</Link>&nbsp;&nbsp;
+        <Link to="/data">Data Table</Link>
+      </div>
     </>
   )
 }

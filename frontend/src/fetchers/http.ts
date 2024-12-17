@@ -1,5 +1,5 @@
 import {API_BASE_URL} from "./config";
-import {AdminConfig, AdminData} from "../types";
+import {AdminConfig, AdminData, MyData} from "../types";
 
 export const getAdminData = (): Promise<AdminData> => fetch(`${API_BASE_URL}/admin`).then((res) => res.json());
 export const saveConfigs = (configs: AdminConfig[]) => fetch(`${API_BASE_URL}/admin/configs`, {
@@ -28,3 +28,5 @@ export const saveMyData = (data: any) => fetch(`${API_BASE_URL}/data`, {
   },
   body: JSON.stringify({data})
 }).then((res) => res.json());
+
+export const getMyData = (): Promise<MyData[]> => fetch(`${API_BASE_URL}/data`).then((res) => res.json());

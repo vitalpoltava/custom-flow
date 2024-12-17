@@ -18,3 +18,8 @@ export interface AdminData {
   components: AdminComponent[],
   configs: AdminConfig[],
 }
+
+export interface MyData {
+  name: string,
+  value: string
+}
