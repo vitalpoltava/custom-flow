@@ -6,6 +6,7 @@ const cors = require('cors');
 
 const loginRouter = require('./routes/login');
 const adminRouter = require('./routes/admin');
+const dataRouter = require('./routes/data');
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(cors())
 
 app.use('/login', loginRouter);
 app.use('/admin', adminRouter);
+app.use('/data', dataRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

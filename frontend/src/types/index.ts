@@ -8,6 +8,12 @@ export interface AdminConfig {
   componentId: number;
 }
 
+export interface Config extends AdminConfig {
+  component: {
+    name: string;
+  }
+}
+
 export interface AdminData {
   components: AdminComponent[],
   configs: AdminConfig[],

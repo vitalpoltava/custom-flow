@@ -71,7 +71,7 @@ function Admin() {
   return (
     <>
       <h3>Admin Panel</h3>
-      <h5>Select components appearance per page</h5>
+      <h5>Select components appearance per page (changes autosaved)</h5>
 
       <Grid container spacing={2}>
         <Grid size={4}>

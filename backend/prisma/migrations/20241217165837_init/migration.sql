@@ -7,7 +7,7 @@ CREATE TABLE "Component" (
 -- CreateTable
 CREATE TABLE "User" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "name" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
     "password" TEXT NOT NULL
 );
 
@@ -20,9 +20,8 @@ CREATE TABLE "Config" (
 );
 
 -- CreateTable
-CREATE TABLE "Value" (
+CREATE TABLE "Data" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "value" INTEGER NOT NULL,
-    "componentId" INTEGER NOT NULL,
-    CONSTRAINT "Value_componentId_fkey" FOREIGN KEY ("componentId") REFERENCES "Component" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    "value" TEXT NOT NULL,
+    "name" TEXT NOT NULL
 );

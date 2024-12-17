@@ -25,7 +25,7 @@ const config = [
     componentId: 2,
     page: 3,
   },
-]
+];
 
 async function main() {
   await prisma.component.deleteMany();
