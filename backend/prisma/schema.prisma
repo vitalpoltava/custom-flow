@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Component {
+  id     Int      @id
+  name   String
+  config Config[]
+  value  Value[]
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  name     String
+  password String
+}
+
+model Config {
+  id          Int       @id @default(autoincrement())
+  page        Int
+  componentId Int
+  component   Component @relation(fields: [componentId], references: [id])
+}
+
+model Value {
+  id          Int       @id
+  value       Int
+  componentId Int
+  component   Component @relation(fields: [componentId], references: [id])
+}
