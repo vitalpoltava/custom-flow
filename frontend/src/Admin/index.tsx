@@ -9,44 +9,14 @@ import Button from '@mui/material/Button';
 import {getAdminData, saveConfigs} from "../fetchers/http";
 import {AdminComponent} from "../types";
 import {Link} from "react-router";
+import {Snackbar} from "@mui/material";
 
 function Admin() {
   const [page2, setPage2] = useState<AdminComponent[]>([]);
   const [page3, setPage3] = useState<AdminComponent[]>([]);
   const [freeComponents, setFreeComponents] = useState<AdminComponent[]>([]);
-
-  useEffect(() => {
-    if (page2.length && page3.length) {
-      saveChanges()
-    }
-  }, [page2, page3])
-
-  const saveChanges = () => {
-    const configsPage2 = page2.map((component) => ({componentId: component.id, page: 2}));
-    const configsPage3 = page3.map((component) => ({componentId: component.id, page: 3}));
-    const configs = [...configsPage2, ...configsPage3];
-    return saveConfigs(configs);
-  }
-
-  const moveToPage2 = (component: AdminComponent) => {
-    setPage2((prevState) => [...prevState, component]);
-    setFreeComponents((prevState) => [...prevState.filter((item) => item.id !== component.id)]);
-  }
-
-  const moveToPage3 = (component: AdminComponent) => {
-    setPage3((prevState) => [...prevState, component]);
-    setFreeComponents((prevState) => [...prevState.filter((item) => item.id !== component.id)]);
-  }
-
-  const releaseFromPage2 = (component: AdminComponent) => {
-    setFreeComponents((prevState) => [...prevState, component]);
-    setPage2((prevState) => [...prevState.filter((item) => item.id !== component.id)]);
-  }
-
-  const releaseFromPage3 = (component: AdminComponent) => {
-    setFreeComponents((prevState) => [...prevState, component]);
-    setPage3((prevState) => [...prevState.filter((item) => item.id !== component.id)]);
-  }
+  const [open, setOpen] = React.useState(false);
+  const [isInitialState, setIsInitialState] = useState(true);
 
   useEffect(() => {
     getAdminData().then((data) => {
@@ -67,7 +37,44 @@ function Admin() {
     })
   }, []);
 
+  useEffect(() => {
+    if (page2.length && page3.length && !isInitialState) {
+      saveChanges().then(() => {
+        setOpen(true);
+      })
+    }
+  }, [page2.length, page3.length])
 
+  const saveChanges = () => {
+    const configsPage2 = page2.map((component) => ({componentId: component.id, page: 2}));
+    const configsPage3 = page3.map((component) => ({componentId: component.id, page: 3}));
+    const configs = [...configsPage2, ...configsPage3];
+    return saveConfigs(configs);
+  }
+
+  const moveToPage2 = (component: AdminComponent) => {
+    setPage2((prevState) => [...prevState, component]);
+    setFreeComponents((prevState) => [...prevState.filter((item) => item.id !== component.id)]);
+    setIsInitialState(false)
+  }
+
+  const moveToPage3 = (component: AdminComponent) => {
+    setPage3((prevState) => [...prevState, component]);
+    setFreeComponents((prevState) => [...prevState.filter((item) => item.id !== component.id)]);
+    setIsInitialState(false)
+  }
+
+  const releaseFromPage2 = (component: AdminComponent) => {
+    setFreeComponents((prevState) => [...prevState, component]);
+    setPage2((prevState) => [...prevState.filter((item) => item.id !== component.id)]);
+    setIsInitialState(false)
+  }
+
+  const releaseFromPage3 = (component: AdminComponent) => {
+    setFreeComponents((prevState) => [...prevState, component]);
+    setPage3((prevState) => [...prevState.filter((item) => item.id !== component.id)]);
+    setIsInitialState(false)
+  }
 
   return (
     <>
@@ -130,6 +137,12 @@ function Admin() {
         <Link to="/">Form</Link>&nbsp;&nbsp;
         <Link to="/data">Data Table</Link>
       </div>
+      <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        message="Configs updated"
+        onClose={() => setOpen(false)}
+      />
     </>
   )
 }

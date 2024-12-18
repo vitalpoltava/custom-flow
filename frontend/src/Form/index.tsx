@@ -1,14 +1,16 @@
-import {lazy, useState} from "react";
+import React, {lazy, useState} from "react";
 import { Link } from "react-router";
 import Login from "./Login";
 import Page2 from "./Page2";
 import Page3 from "./Page3";
 import {Config} from "../types";
 import {saveMyData} from "../fetchers/http";
+import {Snackbar} from "@mui/material";
 
 const Form = () => {
   const [page, setPage] = useState(1);
-  const [config, setConfig] = useState<Config[]>([])
+  const [config, setConfig] = useState<Config[]>([]);
+  const [open, setOpen] = React.useState(false);
 
   const factory = {
     'about': () => lazy(() => import('./About')),
@@ -29,8 +31,11 @@ const Form = () => {
       localStorage.removeItem('address');
       localStorage.removeItem('birthdate');
 
-      // To start
+      // Go to form start
       setPage(1);
+
+      // Show save message
+      setOpen(true);
     })
   }
 
@@ -45,6 +50,12 @@ const Form = () => {
         <Link to="/admin">Admin</Link>&nbsp;&nbsp;
         <Link to="/data">Data Table</Link>
       </div>
+      <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        message="Data saved"
+        onClose={() => setOpen(false)}
+      />
     </div>
   )
 }
