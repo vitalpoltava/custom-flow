@@ -13,7 +13,7 @@ const Birthdate = () => {
   const handleChange = (value: Dayjs | null) => {
     if (value) {
       setBirthdate(value)
-      localStorage.setItem('birthdate', value.toString());
+      localStorage.setItem('birthdate', value.format('YYYY-MM-DD'));
     }
   }
   const [birthdate, setBirthdate] = useState<Dayjs | null>(null);
